@@ -1,17 +1,37 @@
-import { CartaoPokemon } from "./style"
-import pikachu from "../../../public/images/pngwing.com.png"
+import { CartaoPokemon } from "./style";
 
-export default function CardPokemon(){
-    return(
-    <CartaoPokemon>
-        <a className="card-image" href="">
-         <img src={pikachu} alt="pikachu" />
-        </a>
+interface PropsDetailsPokemons {
+    name: string,
+    image: string,
+    types: string[],
+};
 
-        <div className="details">
-          <h2 className="name">pikachu</h2>
-          <div className="types">eletric</div>
-        </div>
-    </CartaoPokemon> 
-    )
+interface PropsCardPokemon {
+  detailsPokemons: PropsDetailsPokemons[];
+}
+
+export default function CardPokemon({ detailsPokemons }: PropsCardPokemon ) {
+  
+  return (
+    <>
+      {detailsPokemons.map((pokemon) => {
+        return (
+          <CartaoPokemon key={pokemon.name}>
+            <a className="card-image" href="#">
+              <img src={pokemon.image} alt={pokemon.name} />
+            </a>
+
+            <div className="details">
+              <h2 className="name">{pokemon.name}</h2>
+              <div className="types">
+                {pokemon.types.map((type) => {
+                  return <p key={type}>{type}</p>;
+                })}
+              </div>
+            </div>
+          </CartaoPokemon>
+        );
+      })}
+    </>
+  );
 }

@@ -23,12 +23,12 @@ export const CartaoPokemon = styled.div`
 
     .types{
         display: flex;
-        gap: 5px;
+        gap: 50px;
         font-size: 13px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         border-radius: 6px;
         padding: 3px 15px;
-        color: white;
+        color: #000000;
     }
 
     .details{
