@@ -13,29 +13,22 @@ interface PropsCardsPokemons {
   showColorPokemon: (type: string) => string;
 }
 
-export default function CardsPokemons({
-  showColorPokemon,
-}: PropsCardsPokemons) {
-  const [detailsPokemons, setDetailsPokemons] = useState<
-    DetailsPokemonsProps[]
-  >([]);
+export default function CardsPokemons({showColorPokemon}: PropsCardsPokemons) {
+  const [detailsPokemons, setDetailsPokemons] = useState<DetailsPokemonsProps[]>([]);
 
-  // const [morePokemons, setMorePokemons] = useState([]);
+  const limit: number = 10;
+  let offset: number = 0;
 
-  // async function getMorePokemons() {
-
-
-  //   detailsPokemons(
-  //     [
-  //       ...detailsPokemons,
-  //       morePokemons
-  //     ]
-  //     )
+  // const fetchMorePokemons = ()=>{
+  //   offset += limit
+  //   return fetchPokemonsList(offset)
   // }
 
   const fetchPokemonsList = async () => {
+    offset += limit
+    
     try {
-      const urlBase: string = "https://pokeapi.co/api/v2/pokemon?limit=10";
+      const urlBase: string = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
       const response: Response = await fetch(urlBase);
       const json = await response.json();
       const { results } = json;
@@ -44,7 +37,9 @@ export default function CardsPokemons({
         results.map((data: { url: string }) => getPokemonsInfo(data.url))
       );
 
-      setDetailsPokemons(pokemonDetails);
+      // setDetailsPokemons(pokemonDetails);
+      setDetailsPokemons((prevDetails) => [...prevDetails, ...pokemonDetails]);
+      
     } catch (error) {
       console.error("Erro ao buscar os Pokémon:", error);
     }
@@ -71,13 +66,12 @@ export default function CardsPokemons({
 
   useEffect(() => {
     fetchPokemonsList();
-    getMorePokemons()
   }, []);
 
   return (
     <CardsPokemonsStyle>
       <CardPokemon detailsPokemons={detailsPokemons} />
-      <button type="button" className="button" id="btn">
+      <button type="button" className="button" id="btn" onClick={fetchPokemonsList}>
         <span className="button__text">Carregar Mais</span>
       </button>
     </CardsPokemonsStyle>
