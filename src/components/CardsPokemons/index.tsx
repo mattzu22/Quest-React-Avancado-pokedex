@@ -1,6 +1,7 @@
 import CardPokemon from "../CardPokemon";
 import { CardsPokemonsStyle } from "./style";
 import { useState, useEffect } from "react";
+import Skeleton from "react-loading-skeleton"
 interface DetailsPokemonsProps {
   name: string;
   image: string;
@@ -15,18 +16,17 @@ interface PropsCardsPokemons {
 
 export default function CardsPokemons({showColorPokemon}: PropsCardsPokemons) {
   const [detailsPokemons, setDetailsPokemons] = useState<DetailsPokemonsProps[]>([]);
+  const [offset, setOffset] = useState<number>(0);
 
   const limit: number = 10;
-  let offset: number = 0;
 
-  // const fetchMorePokemons = ()=>{
-  //   offset += limit
-  //   return fetchPokemonsList(offset)
-  // }
+  const fetchMorePokemons = () => {
+    const newOffset = offset + limit;
+    fetchPokemonsList(newOffset);
+    setOffset(newOffset);
+  };
 
-  const fetchPokemonsList = async () => {
-    offset += limit
-    
+  const fetchPokemonsList = async (offset: number) => {
     try {
       const urlBase: string = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
       const response: Response = await fetch(urlBase);
@@ -37,9 +37,15 @@ export default function CardsPokemons({showColorPokemon}: PropsCardsPokemons) {
         results.map((data: { url: string }) => getPokemonsInfo(data.url))
       );
 
-      // setDetailsPokemons(pokemonDetails);
-      setDetailsPokemons((prevDetails) => [...prevDetails, ...pokemonDetails]);
-      
+      const listPokemons = (prevDetails: DetailsPokemonsProps[]) =>{
+        if (offset === 0) {
+          return pokemonDetails;
+        } else {
+          return [...prevDetails, ...pokemonDetails];
+        }
+      }
+
+      setDetailsPokemons(listPokemons);
     } catch (error) {
       console.error("Erro ao buscar os Pokémon:", error);
     }
@@ -65,13 +71,18 @@ export default function CardsPokemons({showColorPokemon}: PropsCardsPokemons) {
   }
 
   useEffect(() => {
-    fetchPokemonsList();
+    fetchPokemonsList(offset);
   }, []);
 
   return (
     <CardsPokemonsStyle>
       <CardPokemon detailsPokemons={detailsPokemons} />
-      <button type="button" className="button" id="btn" onClick={fetchPokemonsList}>
+      <button
+        type="button"
+        className="button"
+        id="btn"
+        onClick={fetchMorePokemons}
+      >
         <span className="button__text">Carregar Mais</span>
       </button>
     </CardsPokemonsStyle>
