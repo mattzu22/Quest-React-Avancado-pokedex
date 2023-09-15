@@ -9,10 +9,12 @@ export const CardsPokemonsStyle = styled.div`
   gap: 20px;
   margin-top: 20px;
   flex-wrap: wrap;
+  position: relative;
 
   .button {
-    margin: 40px 0 0 0;
-    position: relative;
+    margin: 0 0 15px 0;
+    position:absolute;
+    bottom: -100px;
     padding: 12px 20px;
     background: rgb(255, 255, 255);
     background: linear-gradient(
@@ -26,19 +28,19 @@ export const CardsPokemonsStyle = styled.div`
     cursor: pointer;
   }
 
-  .button__text {
+  .button-text {
     font-family: "Poppins", sans-serif;
     font-weight: bold;
     font-size: 16px;
     transition: all 0.2s;
   }
 
-  .button--loading .button__text {
+  .button-loading .button-text {
     visibility: hidden;
     opacity: 0;
   }
 
-  .button--loading::after {
+  .button-loading::after {
     content: "";
     position: absolute;
     width: 16px;

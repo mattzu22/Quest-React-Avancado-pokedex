@@ -8,7 +8,6 @@ export const HeaderStyle = styled.header`
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
-  margin-top: 25px;
 
   .search{
     display: flex;

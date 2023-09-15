@@ -1,7 +1,6 @@
 import CardPokemon from "../CardPokemon";
 import { CardsPokemonsStyle } from "./style";
 import { useState, useEffect } from "react";
-import Skeleton from "react-loading-skeleton"
 interface DetailsPokemonsProps {
   name: string;
   image: string;
@@ -9,7 +8,6 @@ interface DetailsPokemonsProps {
   bgCard: string;
   colorType: string;
 }
-
 interface PropsCardsPokemons {
   showColorPokemon: (type: string) => string;
 }
@@ -17,13 +15,18 @@ interface PropsCardsPokemons {
 export default function CardsPokemons({showColorPokemon}: PropsCardsPokemons) {
   const [detailsPokemons, setDetailsPokemons] = useState<DetailsPokemonsProps[]>([]);
   const [offset, setOffset] = useState<number>(0);
+  const [loading, setLoading] = useState(false)
 
   const limit: number = 10;
 
   const fetchMorePokemons = () => {
     const newOffset = offset + limit;
-    fetchPokemonsList(newOffset);
-    setOffset(newOffset);
+    setLoading(true);
+    setTimeout(() => {
+      fetchPokemonsList(newOffset);
+      setOffset(newOffset);
+      setLoading(false)
+    }, 2000);
   };
 
   const fetchPokemonsList = async (offset: number) => {
@@ -71,20 +74,33 @@ export default function CardsPokemons({showColorPokemon}: PropsCardsPokemons) {
   }
 
   useEffect(() => {
-    fetchPokemonsList(offset);
+      fetchPokemonsList(offset);
   }, []);
 
   return (
     <CardsPokemonsStyle>
       <CardPokemon detailsPokemons={detailsPokemons} />
+
+      {
+        loading ? (
       <button
         type="button"
-        className="button"
+        className="button button-loading"
         id="btn"
         onClick={fetchMorePokemons}
       >
-        <span className="button__text">Carregar Mais</span>
+        <span className="button-text">Carregar Mais</span>
       </button>
+        ): 
+        ( <button
+          type="button"
+          className="button"
+          id="btn"
+          onClick={fetchMorePokemons}
+        >
+          <span className="button-text">Carregar Mais</span>
+        </button>)
+      }
     </CardsPokemonsStyle>
   );
 }

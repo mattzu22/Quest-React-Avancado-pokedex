@@ -8,31 +8,28 @@ export const CartaoPokemon = styled.div`
   max-width: 100%;
   position: relative;
   overflow: hidden;
-  border: 2px solid black;
-  /* background-color: ${(props)=>{return props.theme.water}}; */
-
-  :hover {
-    transition: 0.4s ease-in-out;
-    transform: scale(1.1);
-    z-index: 10;
-  }
-
+  border: 2px solid ${({theme}) => theme.color};
+  /* background-color: ${({theme})=>{theme.bgcard}}; */
+  
   .name {
     margin-bottom: 3px;
     margin-top: 0;
+    color: ${({theme}) => theme.color};
+    transition: 0.5s ease-in-out;
   }
 
   .types {
     display: flex;
     gap: 10px;
   }
-
+  
   .details .types .type {
     font-size: 13px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 6px;
     padding: 3px 15px;
-    color: white;
+    color: ${({theme}) => theme.color};
+    transition: 0.5s ease-in-out;
   }
 
   .details {
@@ -44,7 +41,8 @@ export const CartaoPokemon = styled.div`
     margin: 0 auto;
     margin-bottom: 20px;
     padding: 15px 8px;
-    background-color: rgba(255, 255, 255, 0.787);
+    background-color: ${({theme}) => theme.bg};
+    transition: 0.5s ease-in-out;
     color: black;
     z-index: 10;
     position: relative;
@@ -62,5 +60,11 @@ export const CartaoPokemon = styled.div`
   img {
     max-width: 100%;
     z-index: 10;
+
+  }
+
+  img:hover {
+  transition: 0.4s ease-in-out;
+  transform: scale(1.1);
   }
 `;
