@@ -6,10 +6,10 @@ body{
     background-size: cover;
     min-height: 100vh;
     font-family: "Poppins", sans-serif;
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: column; */
   }
 
 *{

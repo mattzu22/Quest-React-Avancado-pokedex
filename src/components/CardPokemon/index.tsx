@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { CartaoPokemon } from "./style";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { ThemeContext } from "../../context";
 import { ThemeContextType } from "../../context";

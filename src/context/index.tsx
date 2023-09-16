@@ -6,6 +6,7 @@ export interface Theme {
   bgMode: string;
   color: string;
   colorMode: string;
+  colorPokebola: string;
   mode: string;
 }
 
@@ -21,6 +22,7 @@ export const themes: ThemeContext = {
     bgMode: "#ffffff",
     color: "#ffffff",
     colorMode: "#000000",
+    colorPokebola:"invert(0)",
     mode: "Light",
   },
   light: {
@@ -29,6 +31,7 @@ export const themes: ThemeContext = {
     bgMode: "#000000",
     colorMode: "#ffffff",
     color: "#000000",
+    colorPokebola:"invert(100%)",
     mode: "Dark",
   },
 };

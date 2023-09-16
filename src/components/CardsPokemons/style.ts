@@ -9,12 +9,10 @@ export const CardsPokemonsStyle = styled.div`
   gap: 20px;
   margin-top: 20px;
   flex-wrap: wrap;
-  position: relative;
 
   .button {
-    margin: 0 0 15px 0;
-    position:absolute;
-    bottom: -100px;
+    margin: 40px 0 20px 0;
+    position:relative; 
     padding: 12px 20px;
     background: rgb(255, 255, 255);
     background: linear-gradient(
