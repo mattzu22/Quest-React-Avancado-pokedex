@@ -1,12 +1,11 @@
-import { ThemeContext, ThemeContextType } from "./context";
+
 import { ThemeContextProvider } from "./context"
 import { CSSreset } from "./CSSReset";
-import CardsPokemons from "./components/CardsPokemons";
 import Header from "./components/Header";
-import { SkeletonTheme } from "react-loading-skeleton";
 import { ThemeTogglerButton } from "./components/theme-toggler";
-import { useContext } from "react";
+
 import { ThemeProvider } from "styled-components";
+import { AppRoutes }  from "./pages/routes"
 
 type BgCardPokemons = Record<string, string>;
 
@@ -128,7 +127,7 @@ const bgCardPokemon: BgCardPokemons = {
   )`,
 };
 
-const showColorPokemon = (type: string): string => {
+export const showColorPokemon = (type: string): string => {
   return bgCardPokemon[type];
 };
 
@@ -139,7 +138,7 @@ function App() {
         <CSSreset />
         <Header />
         <ThemeTogglerButton />
-        <CardsPokemons showColorPokemon={showColorPokemon} />
+        <AppRoutes />
     </ThemeProvider>
   </ThemeContextProvider> 
   );

@@ -1,18 +1,19 @@
 import CardPokemon from "../CardPokemon";
 import { CardsPokemonsStyle } from "./style";
 import { useState, useEffect } from "react";
+import {showColorPokemon} from "../../App"
+
 interface DetailsPokemonsProps {
   name: string;
   image: string;
   types: string[];
-  bgCard: string;
-  colorType: string;
+  colorPokemon: string;
 }
-interface PropsCardsPokemons {
-  showColorPokemon: (type: string) => string;
-}
+// interface PropsCardsPokemons {
+//   showColorPokemon: (type: string) => string;
+// }
 
-export default function CardsPokemons({showColorPokemon}: PropsCardsPokemons) {
+export function CardsPokemons() {
   const [detailsPokemons, setDetailsPokemons] = useState<DetailsPokemonsProps[]>([]);
   const [offset, setOffset] = useState<number>(0);
   const [loading, setLoading] = useState(false)
@@ -61,15 +62,13 @@ export default function CardsPokemons({showColorPokemon}: PropsCardsPokemons) {
     const types: string[] = pokemons.types.map(
       (type: { type: { name: string } }) => type.type.name
     );
-    const bgCard = showColorPokemon(types.join("-"));
-    const colorType = showColorPokemon(types.join("-"));
+    const colorPokemon = showColorPokemon(types.join("-"));
 
     return {
       name: pokemons.name,
       image: pokemons.sprites.front_default,
       types: types,
-      bgCard: bgCard,
-      colorType: colorType,
+      colorPokemon: colorPokemon,
     };
   }
 

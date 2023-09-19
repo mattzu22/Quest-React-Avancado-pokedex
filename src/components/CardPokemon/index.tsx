@@ -8,8 +8,7 @@ interface PropsDetailsPokemons {
   name: string;
   image: string;
   types: string[];
-  bgCard: string;
-  colorType: string;
+  colorPokemon: string;
 }
 interface PropsCardPokemon {
   detailsPokemons: PropsDetailsPokemons[];
@@ -24,7 +23,7 @@ export default function CardPokemon({ detailsPokemons }: PropsCardPokemon) {
       {detailsPokemons.map((pokemon) => (
         <CartaoPokemon
           key={pokemon.name}
-          style={{ background: pokemon.bgCard }}
+          style={{ background: pokemon.colorPokemon }}
           theme={theme}
         >
           <a className="card-image" href="#">
@@ -38,7 +37,7 @@ export default function CardPokemon({ detailsPokemons }: PropsCardPokemon) {
               {pokemon.types.map((type) => (
                 <p
                   className="type"
-                  style={{ background: pokemon.colorType }}
+                  style={{ background: pokemon.colorPokemon }}
                   key={type}
                 >
                   {type}
