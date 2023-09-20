@@ -20,7 +20,6 @@ export const StyleCardPokemon = styled.div`
 .container-card-pokemon {
   border-radius: 20px;
   width: 100%;
-  background-color: red;
 }
 
 .info-pokemon-top .name-type .name {
@@ -142,11 +141,6 @@ export const StyleCardPokemon = styled.div`
 }
 
 .info-bottom .poke-details .info .info-poke {
-  display: none;
-}
-
-.info-bottom .poke-details .info .info-poke.aberto {
-  display: block;
   animation: changer-info 0.5s ease-in-out;
 }
 

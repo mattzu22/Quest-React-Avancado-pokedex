@@ -3,6 +3,7 @@ import { CartaoPokemon } from "./style";
 import "react-loading-skeleton/dist/skeleton.css";
 import { ThemeContext } from "../../context";
 import { ThemeContextType } from "../../context";
+import { Link } from "react-router-dom";
 
 interface PropsDetailsPokemons {
   name: string;
@@ -26,9 +27,9 @@ export default function CardPokemon({ detailsPokemons }: PropsCardPokemon) {
           style={{ background: pokemon.colorPokemon }}
           theme={theme}
         >
-          <a className="card-image" href="#">
+          <Link className="card-image" to={`/pokemon/${pokemon.name}`}>
             <img src={pokemon.image} alt={pokemon.name} />
-          </a>
+          </Link>
 
           <div className="details">
             <h2 className="name">{pokemon.name}</h2>

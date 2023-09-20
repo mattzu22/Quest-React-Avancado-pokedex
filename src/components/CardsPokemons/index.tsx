@@ -9,9 +9,6 @@ interface DetailsPokemonsProps {
   types: string[];
   colorPokemon: string;
 }
-// interface PropsCardsPokemons {
-//   showColorPokemon: (type: string) => string;
-// }
 
 export function CardsPokemons() {
   const [detailsPokemons, setDetailsPokemons] = useState<DetailsPokemonsProps[]>([]);
