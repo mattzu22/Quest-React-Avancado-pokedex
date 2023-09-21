@@ -15,46 +15,52 @@ export const StyleCardPokemon = styled.div`
   to {
     opacity: 1;
   }
-}
 
+}
 .container-card-pokemon {
   border-radius: 20px;
   width: 100%;
 }
+`
+export const InfoPokemonTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 15px 35px 0 35px;
+  position: relative;
+  color: ${({theme})=>theme.color};
+  transition: 0.2s ease-in-out;
 
-.info-pokemon-top .name-type .name {
+.name-type .name {
   margin-bottom: 5px;
   font-size: 30px;
   font-weight: 800;
-  color: white;
 }
 
-.info-pokemon-top .name-type .name::first-letter {
+.name::first-letter {
   text-transform: uppercase;
 }
 
-.info-pokemon-top .name-type .types {
+.types {
   display: flex;
   gap: 5px;
-}
 
-.info-pokemon-top .name-type .types .type {
+  .type {
   font-size: 13px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 6px;
   padding: 3px 15px;
-  color: white;
   opacity: 0.8;
 }
+}
 
-.info-pokemon-top .number {
+.number {
   font-size: 17px;
   font-weight: 800;
   margin-top: 12px;
-  color: white;
 }
 
-.info-pokemon-top .btn-shiny {
+.btn-shiny {
   position: absolute;
   right: 40px;
   top: 70px;
@@ -68,49 +74,65 @@ export const StyleCardPokemon = styled.div`
   cursor: pointer;
   transition: 0.2s ease-in-out;
 }
+`
 
-.info-pokemon-top {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  padding: 15px 35px 0 35px;
-  position: relative;
+export const InfoPokemonBottom = styled.div`
+img {
+  max-width: 100%;
+  z-index: 10;
 }
 
-.info-bottom .img-pokemon {
-  width: 100%;
-  margin: 0 auto;
-  height: 250px;
-  object-fit: contain;
-  padding: 0 15px;
-  transition: 0.4s ease;
-}
+.img-pokemon {
+   width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
 
-.info-bottom .img-pokemon img {
-  width: 100%;
+.img-pokemon:before{
+  content: "";
+  background: url(../../public/images/pokebola.webp) center center no-repeat;
+  filter: ${({theme}) => theme.colorPokebola};
+  width: 400px;
+  height: 290px;
+  transition: 0.3s ease-in-out;
+  opacity: 0.7;
+  overflow: hidden;
+  position: absolute;
 }
+`
+export const PokeDetails = styled.div`
+  background-color: ${({theme}) => theme.bg};
+  opacity: 0.8;
+  border-radius: 50px 50px 20px 20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  color: ${({theme}) =>theme.color};
+  transition: 0.3s ease-in-out;
+`
 
-.info-bottom .poke-details .navegation ul {
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-  padding-bottom: 20px;
-}
+export const Navegation = styled.nav`
+  ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    padding-bottom: 20px;
 
-.info-bottom .poke-details .navegation ul li {
-  cursor: pointer;
-  opacity: 0.5;
-  font-size: 14px;
-}
+    li {
+      cursor: pointer;
+      opacity: 0.5;
+      font-size: 14px;
+    }
 
-.info-bottom .poke-details .navegation ul li.selecionado {
-  opacity: 1;
-  font-weight: bold;
-  border-bottom: 2px solid rgb(86, 86, 245);
-  animation: changer-menu 0.5s ease-in-out;
-}
+    li.selecionado {
+      opacity: 1;
+      font-weight: bold;
+      border-bottom: 2px solid rgb(86, 86, 245);
+      animation: changer-menu 0.5s ease-in-out;
+    }
+  }
 
-@keyframes changer-menu {
+  @keyframes changer-menu {
   from {
     opacity: 0;
   }
@@ -119,76 +141,75 @@ export const StyleCardPokemon = styled.div`
     opacity: 1;
   }
 }
+`
 
-.info-bottom .poke-details {
-  background-color: #ffffffc9;
-  opacity: 0.8;
-  border-radius: 50px 50px 20px 20px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-.info-bottom .poke-details .info {
+export const InfoPokemon = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 45px 20px;
   height: 250px;
-}
 
-.info-bottom .poke-details .info .abilities ul {
+  .info-poke {
+    animation: changer-info 0.5s ease-in-out;
+  }
+
+  @keyframes changer-info {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+
+  h3{
+   font-size: 23px;
+   margin-bottom: 10px;
+   border-bottom: 1px solid #6b727a;
+  }
+
+  ul li{
+  border-bottom: 1px solid #c3c4c5;
   padding: 0 0 5px;
   margin-bottom: 3px;
   font-size: 15px;
-}
-
-.info-bottom .poke-details .info .info-poke {
-  animation: changer-info 0.5s ease-in-out;
-}
-
-@keyframes changer-info {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.info-bottom .poke-details .info .abilities ul {
+ }
+  
+.abilities ul {
   height: 180px;
   overflow-y: scroll;
 }
+  
+.poke-details .info .abilities ul {
+    padding: 0 0 5px;
+    margin-bottom: 3px;
+    font-size: 15px;
+}
 
-.info-bottom .poke-details .info .abilities ul::-webkit-scrollbar {
+.abilities ul::-webkit-scrollbar {
   width: 5px;
 }
 
-.info-bottom .poke-details .info .abilities ul::-webkit-scrollbar-thumb {
+.abilities ul::-webkit-scrollbar-thumb {
   background-color: blue;
   border-radius: 10px;
   width: 5px;
 }
 
- .info-bottom .poke-details .moves h3,
- .info-bottom .poke-details .status h3,
- .info-bottom .poke-details .info .abilities h3 {
-  font-size: 23px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #6b727a;
-}
-
-.info-bottom .poke-details .abilities ul li span {
+.abilities ul li span {
   font-weight: 700;
   font-size: 16px;
 }
-
-.info-bottom .poke-details .moves ul li,
-.info-bottom .poke-details .status ul li,
-.info-bottom .poke-details .abilities ul li {
-  border-bottom: 1px solid #c3c4c5;
-  padding: 0 0 5px;
-  margin-bottom: 3px;
-  font-size: 15px;
-}
-
 `
+
+
+
+
+
+
+
+
+
+
+

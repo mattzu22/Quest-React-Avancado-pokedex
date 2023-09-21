@@ -1,7 +1,15 @@
-import { StyleCardPokemon } from "./style";
+import {
+  StyleCardPokemon,
+  InfoPokemonTop,
+  InfoPokemonBottom,
+  PokeDetails,
+  Navegation,
+  InfoPokemon,
+} from "./style";
 import { showColorPokemon } from "../../App";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ThemeContext, ThemeContextType } from "../../context";
 
 interface DetailsPokemonProps {
   name: string;
@@ -10,14 +18,14 @@ interface DetailsPokemonProps {
   image: string;
   id: string;
   moves: string[];
+  abilities: string[];
 }
 
 export function PokemonsDetails() {
   const [detailsPokemon, setDetailsPokemon] = useState<DetailsPokemonProps>();
   const [menu, setMenu] = useState("status");
 
-  console.log(menu);
-  
+  const { theme } = useContext(ThemeContext) as ThemeContextType;
 
   const { pokemon } = useParams();
 
@@ -33,6 +41,21 @@ export function PokemonsDetails() {
   async function getDetailsPokemon(dataPokemon: any) {
     const types = dataPokemon.types.map((type: any) => type.type.name);
 
+    const urlAbilitiesPromises = dataPokemon.abilities.map(
+      async (ability: any) => {
+        const urlAbilities = ability.ability.url;
+        const response = await fetch(urlAbilities);
+        const json = await response.json();
+
+        return {
+          nameAbility: ability.ability.name,
+          effect: json.effect_entries.filter(
+            (entry: any) => entry.language.name === "en"
+          ),
+        };
+      }
+    );
+
     const infoStats = dataPokemon.stats.map((stat: any) => {
       const nameStats = stat.stat.name;
       const baseStats = stat.base_stat;
@@ -42,14 +65,17 @@ export function PokemonsDetails() {
     const { moves } = dataPokemon;
     const movesSelect = moves.slice(0, 4);
 
-    return {
-      name: dataPokemon.name,
-      types: types,
-      stats: infoStats,
-      image: dataPokemon.sprites.front_default,
-      id: dataPokemon.id,
-      moves: movesSelect,
-    };
+    return Promise.all(urlAbilitiesPromises).then((res) => {
+      return {
+        name: dataPokemon.name,
+        types: types,
+        stats: infoStats,
+        image: dataPokemon.sprites.front_default,
+        id: dataPokemon.id,
+        moves: movesSelect,
+        abilities: res,
+      };
+    });
   }
 
   const colorPokemon = showColorPokemon(detailsPokemon?.types.join("-"));
@@ -60,77 +86,92 @@ export function PokemonsDetails() {
 
   return (
     <StyleCardPokemon>
-      <div className="container-card-pokemon" style={{background: colorPokemon}}>
-        <div className="info-pokemon-top">
+      <div
+        className="container-card-pokemon"
+        style={{ background: colorPokemon }}
+      >
+        <InfoPokemonTop theme={theme}>
           <div className="name-type">
             <h2 className="name">{detailsPokemon?.name}</h2>
             <div className="types">
-              {detailsPokemon?.types.map((type) => <span className="type" style={{background: colorPokemon}} key={type}>{type}</span>)}
+              {detailsPokemon?.types.map((type) => (
+                <span
+                  className="type"
+                  style={{ background: colorPokemon }}
+                  key={type}
+                >
+                  {type}
+                </span>
+              ))}
             </div>
           </div>
           <p className="number">#0{detailsPokemon?.id}</p>
 
           <button className="btn-shiny"></button>
-        </div>
+        </InfoPokemonTop>
 
-        <div className="info-bottom">
-          <img src={detailsPokemon?.image} className="img-pokemon" />
+        <InfoPokemonBottom theme={theme}>
+          <div className="img-pokemon">
+            <img src={detailsPokemon?.image} />
+          </div>
 
-          <div className="poke-details">
-            <nav className="navegation">
-              <ul className="menu">
+          <PokeDetails theme={theme}>
+            <Navegation>
+              <ul>
                 <li className="selecionado" onClick={() => setMenu("status")}>
                   Status
                 </li>
                 <li onClick={() => setMenu("moves")}>Moves</li>
                 <li onClick={() => setMenu("abilities")}>Abilities</li>
               </ul>
-            </nav>
+            </Navegation>
 
-            <div className="info">
+            <InfoPokemon>
               {menu == "status" ? (
-                <div className="status info-poke aberto" >
-                <h3>Status</h3>
+                <div className="info-poke">
+                  <h3>Status</h3>
 
-                <ul className="info-status">
-                  {detailsPokemon?.stats
-                    .map((stat) => {
-                     return <li>{stat.nameStats}: {stat.baseStats}</li>;
-                    })
-                    }
-                </ul>
-              </div>
-              ) : null
-              }
-              
-              { menu == "moves" ? (
-
-              <div className="moves info-poke" >
-                <h3>Moves</h3>
-
-                <ul>
-                  {detailsPokemon?.moves.map((move) => <li>{move.move.name}</li>)}
-                </ul>
-              </div>
-              ): null
-              }
-
-              {
-                menu == "abilities" ? (
-                  <div className="abilities info-poke" >
-                  <h3>Abilities</h3>
-  
-                  <ul>
-                    <li>hp: 44</li>
-                    <li>hp: 44</li>
-                    <li>hp: 44</li>
+                  <ul className="info-status">
+                    {detailsPokemon?.stats.map((stat, index) => {
+                      return (
+                        <li key={index}>
+                          {stat.nameStats}: {stat.baseStats}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
-                ): null
-              }
-            </div>
-          </div>
-        </div>
+              ) : null}
+
+              {menu == "moves" ? (
+                <div className="info-poke">
+                  <h3>Moves</h3>
+
+                  <ul>
+                    {detailsPokemon?.moves.map((move, index) => (
+                      <li key={index}>{move.move.name}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              {menu == "abilities" ? (
+                <div className="abilities info-poke">
+                  <h3>Abilities</h3>
+
+                  <ul>
+                    {detailsPokemon?.abilities.map((ability, index) => (
+                      <li key={index}>
+                        <span>{ability.nameAbility}</span>:{" "}
+                        {ability.effect[0].effect}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </InfoPokemon>
+          </PokeDetails>
+        </InfoPokemonBottom>
       </div>
     </StyleCardPokemon>
   );

@@ -59,6 +59,7 @@ export function CardsPokemons() {
     const types: string[] = pokemons.types.map(
       (type: { type: { name: string } }) => type.type.name
     );
+    
     const colorPokemon = showColorPokemon(types.join("-"));
 
     return {
