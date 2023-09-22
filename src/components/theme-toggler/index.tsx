@@ -1,29 +1,27 @@
 import { useContext } from "react";
 import { ThemeContext, ThemeContextType, themes } from "../../context";
-import ThemeToggler from "../Button";
+;
 import { StyleDiv } from "./style";
 import { CiSun } from "react-icons/Ci";
-import { GrMoon } from "react-icons/Gr";
+import { HiOutlineMoon } from "react-icons/hi"
+import Button from "../Button";
+
 
 export const ThemeTogglerButton = () => {
   const { theme, setTheme } = useContext(ThemeContext) as ThemeContextType;
 
   return (
     <StyleDiv theme={theme}>
-      <ThemeToggler
-        onClick={() =>
+      <Button className="btn">
+        <input type="checkbox" className="checkbox" id="checkbox" onClick={() =>
           setTheme(theme === themes.light ? themes.dark : themes.light)
-        }
-        className="btn"
-        style={{ background: "tranparent", outline: "none" }}
-      >
-        <input type="checkbox" className="checkbox" id="checkbox" />
-        <label for="checkbox" className="checkbox-label">
-          <CiSun style={{ color: "white" }} />
-          <GrMoon style={{ color: "white" }} />
+        }/>
+        <label htmlFor="checkbox" className="checkbox-label">
+          <CiSun className="fa-sun" />
+          <HiOutlineMoon className="fa-moon" />
           <span className="ball"></span>
         </label>
-      </ThemeToggler>
+      </Button>
     </StyleDiv>
   );
 };

@@ -24,7 +24,7 @@ export function CardsPokemons() {
       fetchPokemonsList(newOffset);
       setOffset(newOffset);
       setLoading(false)
-    }, 2000);
+    }, 1000);
   };
 
   const fetchPokemonsList = async (offset: number) => {

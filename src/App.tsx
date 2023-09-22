@@ -1,11 +1,11 @@
-
-import { ThemeContextProvider } from "./context"
+import { ThemeContext, ThemeContextType } from "./context";
 import { CSSreset } from "./CSSReset";
 import Header from "./components/Header";
 import { ThemeTogglerButton } from "./components/theme-toggler";
 
 import { ThemeProvider } from "styled-components";
-import { AppRoutes }  from "./pages/routes"
+import { AppRoutes } from "./pages/routes";
+import { useContext } from "react";
 
 type BgCardPokemons = Record<string, string>;
 
@@ -132,15 +132,15 @@ export const showColorPokemon = (type: string): string => {
 };
 
 function App() {
+  const { theme } = useContext(ThemeContext) as ThemeContextType;
+
   return (
-  <ThemeContextProvider> 
     <ThemeProvider theme={bgCardPokemon}>
-        <CSSreset />
-        <Header />
-        <ThemeTogglerButton />
-        <AppRoutes />
+      <CSSreset theme={theme} />
+      <Header />
+      <ThemeTogglerButton />
+      <AppRoutes />
     </ThemeProvider>
-  </ThemeContextProvider> 
   );
 }
 

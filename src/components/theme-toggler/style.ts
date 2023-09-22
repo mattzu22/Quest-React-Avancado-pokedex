@@ -47,6 +47,7 @@ export const StyleDiv = styled.div`
 
 .fa-sun {
   color: #f39c12;
+  font-size: 17px;
 }
 
 .checkbox-label .ball {

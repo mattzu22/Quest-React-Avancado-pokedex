@@ -29,7 +29,7 @@ export function PokemonsDetails() {
 
   const { pokemon } = useParams();
 
-  async function getDataPokemon(pokemon) {
+  async function getDataPokemon(pokemon: any) {
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
     const response = await fetch(url);
     const json = await response.json();

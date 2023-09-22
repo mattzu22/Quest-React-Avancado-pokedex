@@ -7,7 +7,6 @@ export interface Theme {
   color: string;
   colorMode: string;
   colorPokebola: string;
-  mode: string;
 }
 
 interface ThemeContext {
@@ -17,22 +16,20 @@ interface ThemeContext {
 
 export const themes: ThemeContext = {
   dark: {
-    bg: "hsl(218, 23%, 16%)",
-    bgCard: "hsl(217, 19%, 24%)",
+    bg: "#313131",
+    bgCard: "rgba(0, 0, 0, 0.773), rgba(0, 0, 0, 0.592)",
     bgMode: "#ffffff",
     color: "#ffffff",
     colorMode: "#000000",
     colorPokebola:"invert(0)",
-    mode: "Light",
   },
   light: {
     bg: "#ffffff",
-    bgCard: "rgb(128,128,128)",
+    bgCard: "rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)",
     bgMode: "#000000",
     colorMode: "#ffffff",
     color: "#000000",
     colorPokebola:"invert(100%)",
-    mode: "Dark",
   },
 };
 

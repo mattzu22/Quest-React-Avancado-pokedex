@@ -2,14 +2,11 @@ import { createGlobalStyle } from "styled-components";
 
 export const CSSreset = createGlobalStyle`
 body{
-    background: url(../public/images/bg-pokemon.jpg) center center no-repeat fixed;
+    background: linear-gradient(${({theme})=> theme.bgCard}) ,url(../public/images/bg-pokemon.jpg) center center no-repeat fixed;
     background-size: cover;
     min-height: 100vh;
     font-family: "Poppins", sans-serif;
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; */
+    transition: 0.3s ease-in-out;
   }
 
 *{
@@ -25,5 +22,10 @@ a{
 
 ul{
   list-style: none;
+}
+
+button{
+  background: transparent;
+  border: 0;
 }
 `;  

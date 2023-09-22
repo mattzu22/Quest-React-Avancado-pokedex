@@ -4,7 +4,7 @@ export const StyleCardPokemon = styled.div`
   max-width: 430px;
   width: 100%;
   margin: 0 auto;
-  padding: 80px 15px;
+  padding: 40px 15px;
   animation: changer-shiny 1s ease-in-out;
 
   @keyframes changer-shiny {
@@ -75,7 +75,6 @@ export const InfoPokemonTop = styled.div`
   transition: 0.2s ease-in-out;
 }
 `
-
 export const InfoPokemonBottom = styled.div`
 img {
   max-width: 100%;
@@ -110,7 +109,6 @@ export const PokeDetails = styled.div`
   color: ${({theme}) =>theme.color};
   transition: 0.3s ease-in-out;
 `
-
 export const Navegation = styled.nav`
   ul {
     display: flex;
@@ -142,7 +140,6 @@ export const Navegation = styled.nav`
   }
 }
 `
-
 export const InfoPokemon = styled.div`
   display: flex;
   justify-content: space-between;

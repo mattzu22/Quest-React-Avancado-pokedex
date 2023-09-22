@@ -1,5 +1,5 @@
 
-export default function ThemeToggler(props: any){
+export default function Button(props: any){
     return (
         <button {...props} />
     )
