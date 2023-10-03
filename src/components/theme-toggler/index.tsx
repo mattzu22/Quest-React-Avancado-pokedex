@@ -4,7 +4,7 @@ import { ThemeContext, ThemeContextType, themes } from "../../context";
 import { StyleDiv } from "./style";
 import { CiSun } from "react-icons/Ci";
 import { HiOutlineMoon } from "react-icons/hi"
-import Button from "../Button";
+
 
 
 export const ThemeTogglerButton = () => {
@@ -12,7 +12,7 @@ export const ThemeTogglerButton = () => {
 
   return (
     <StyleDiv theme={theme}>
-      <Button className="btn">
+      <button className="btn">
         <input type="checkbox" className="checkbox" id="checkbox" onClick={() =>
           setTheme(theme === themes.light ? themes.dark : themes.light)
         }/>
@@ -21,7 +21,7 @@ export const ThemeTogglerButton = () => {
           <HiOutlineMoon className="fa-moon" />
           <span className="ball"></span>
         </label>
-      </Button>
+      </button>
     </StyleDiv>
   );
 };

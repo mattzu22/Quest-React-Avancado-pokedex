@@ -14,35 +14,56 @@ import { ThemeContext, ThemeContextType } from "../../context";
 interface DetailsPokemonProps {
   name: string;
   types: string[];
-  stats: string[];
+  stats: {
+    nameStats: string;
+    baseStats: string;
+  }[];
   image: string;
   id: string;
-  moves: string[];
-  abilities: string[];
+  moves: {
+    move: any;
+    name: string;
+    url: string;
+  }[];
+  abilities: {
+    nameAbility: string;
+    effect: { effect: string }[];
+  }[];
+  colorPokemon: string;
+}
+
+interface PropsAbilities {
+  nameAbility: string;
+  effect: string;
 }
 
 export function PokemonsDetails() {
-  const [detailsPokemon, setDetailsPokemon] = useState<DetailsPokemonProps>();
+  const [detailsPokemon, setDetailsPokemon] = useState<
+    DetailsPokemonProps | undefined
+  >(undefined);
   const [menu, setMenu] = useState("status");
 
   const { theme } = useContext(ThemeContext) as ThemeContextType;
 
   const { pokemon } = useParams();
 
-  async function getDataPokemon(pokemon: any) {
+  async function getDataPokemon(pokemon: string | undefined) {
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
     const response = await fetch(url);
     const json = await response.json();
-    const detailsPokemon = await getDetailsPokemon(json);
 
-    setDetailsPokemon(detailsPokemon);
+    const dataPokemon: DetailsPokemonProps = await getDetailsPokemon(json);
+  
+    setDetailsPokemon(dataPokemon);
   }
 
-  async function getDetailsPokemon(dataPokemon: any) {
-    const types = dataPokemon.types.map((type: any) => type.type.name);
+  async function getDetailsPokemon(dataPokemon: Record<string, any>) {
+    const types: string[] = dataPokemon.types.map(
+      (type: { type: { name: string } }) => type.type.name
+    );
 
     const urlAbilitiesPromises = dataPokemon.abilities.map(
-      async (ability: any) => {
+      async (ability: { ability: {name: string; url: string} }) => {
         const urlAbilities = ability.ability.url;
         const response = await fetch(urlAbilities);
         const json = await response.json();
@@ -50,20 +71,27 @@ export function PokemonsDetails() {
         return {
           nameAbility: ability.ability.name,
           effect: json.effect_entries.filter(
-            (entry: any) => entry.language.name === "en"
+            (entry: {language: {name: string}, }) => entry.language.name === "en"
+            
           ),
         };
       }
     );
 
-    const infoStats = dataPokemon.stats.map((stat: any) => {
-      const nameStats = stat.stat.name;
-      const baseStats = stat.base_stat;
-      return { nameStats, baseStats };
-    });
+    const infoStats = dataPokemon.stats.map(
+      (stat: {stat: {name: string}, base_stat: string}) => {
+        console.log(stat);
+        
+        const nameStats = stat.stat.name;
+        const baseStats = stat.base_stat;
+        return { nameStats, baseStats };
+      }
+    );
 
     const { moves } = dataPokemon;
     const movesSelect = moves.slice(0, 4);
+
+    const colorPokemon = showColorPokemon(types.join("-"));
 
     return Promise.all(urlAbilitiesPromises).then((res) => {
       return {
@@ -74,11 +102,10 @@ export function PokemonsDetails() {
         id: dataPokemon.id,
         moves: movesSelect,
         abilities: res,
+        colorPokemon: colorPokemon,
       };
     });
   }
-
-  const colorPokemon = showColorPokemon(detailsPokemon?.types.join("-"));
 
   useEffect(() => {
     getDataPokemon(pokemon);
@@ -88,7 +115,7 @@ export function PokemonsDetails() {
     <StyleCardPokemon>
       <div
         className="container-card-pokemon"
-        style={{ background: colorPokemon }}
+        style={{ background: detailsPokemon?.colorPokemon }}
       >
         <InfoPokemonTop theme={theme}>
           <div className="name-type">
@@ -97,7 +124,7 @@ export function PokemonsDetails() {
               {detailsPokemon?.types.map((type) => (
                 <span
                   className="type"
-                  style={{ background: colorPokemon }}
+                  style={{ background: detailsPokemon?.colorPokemon }}
                   key={type}
                 >
                   {type}
@@ -118,11 +145,11 @@ export function PokemonsDetails() {
           <PokeDetails theme={theme}>
             <Navegation>
               <ul>
-                <li className="selecionado" onClick={() => setMenu("status")}>
+                <li className={menu == "status" ? "selecionado" : ""} onClick={() => setMenu("status")}>
                   Status
                 </li>
-                <li onClick={() => setMenu("moves")}>Moves</li>
-                <li onClick={() => setMenu("abilities")}>Abilities</li>
+                <li className={menu == "moves" ? "selecionado" : ""} onClick={() => setMenu("moves")}>Moves</li>
+                <li className={menu == "abilities" ? "selecionado" : ""} onClick={() => setMenu("abilities")}>Abilities</li>
               </ul>
             </Navegation>
 
@@ -132,9 +159,9 @@ export function PokemonsDetails() {
                   <h3>Status</h3>
 
                   <ul className="info-status">
-                    {detailsPokemon?.stats.map((stat, index) => {
+                    {detailsPokemon?.stats.map((stat) => {
                       return (
-                        <li key={index}>
+                        <li key={stat.nameStats}>
                           {stat.nameStats}: {stat.baseStats}
                         </li>
                       );
@@ -148,8 +175,8 @@ export function PokemonsDetails() {
                   <h3>Moves</h3>
 
                   <ul>
-                    {detailsPokemon?.moves.map((move, index) => (
-                      <li key={index}>{move.move.name}</li>
+                    {detailsPokemon?.moves.map((move) => (
+                      <li key={move.name}>{move.move.name}</li>
                     ))}
                   </ul>
                 </div>
@@ -160,8 +187,8 @@ export function PokemonsDetails() {
                   <h3>Abilities</h3>
 
                   <ul>
-                    {detailsPokemon?.abilities.map((ability, index) => (
-                      <li key={index}>
+                    {detailsPokemon?.abilities.map((ability) => (
+                      <li key={ability.nameAbility}>
                         <span>{ability.nameAbility}</span>:{" "}
                         {ability.effect[0].effect}
                       </li>

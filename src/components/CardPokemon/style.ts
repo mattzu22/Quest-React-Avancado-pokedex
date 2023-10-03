@@ -58,7 +58,7 @@ export const CartaoPokemon = styled.div`
  .card-image:before {
   content: "";
   background: url(../../public/images/pokebola.webp) center center no-repeat;
-  filter: ${({theme}) => theme.colorPokebola};
+  filter: ${({ theme }) => theme.colorPokebola};
   display: block;
   width: 160%;
   height: 100%;
@@ -68,14 +68,4 @@ export const CartaoPokemon = styled.div`
   position: absolute;
   top: -50px;
 }
-
-  img {
-    max-width: 100%;
-    z-index: 10;
-  }
-
-  img:hover {
-  transition: 0.4s ease-in-out;
-  transform: scale(1.1);
-  }
 `;

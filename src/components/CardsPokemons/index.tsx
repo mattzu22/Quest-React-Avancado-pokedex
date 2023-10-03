@@ -1,8 +1,7 @@
 import CardPokemon from "../CardPokemon";
 import { CardsPokemonsStyle } from "./style";
 import { useState, useEffect } from "react";
-import {showColorPokemon} from "../../App"
-
+import { showColorPokemon } from "../../App";
 interface DetailsPokemonsProps {
   name: string;
   image: string;
@@ -13,7 +12,7 @@ interface DetailsPokemonsProps {
 export function CardsPokemons() {
   const [detailsPokemons, setDetailsPokemons] = useState<DetailsPokemonsProps[]>([]);
   const [offset, setOffset] = useState<number>(0);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false);
 
   const limit: number = 10;
 
@@ -23,7 +22,7 @@ export function CardsPokemons() {
     setTimeout(() => {
       fetchPokemonsList(newOffset);
       setOffset(newOffset);
-      setLoading(false)
+      setLoading(false);
     }, 1000);
   };
 
@@ -38,13 +37,13 @@ export function CardsPokemons() {
         results.map((data: { url: string }) => getPokemonsInfo(data.url))
       );
 
-      const listPokemons = (prevDetails: DetailsPokemonsProps[]) =>{
+      const listPokemons = (prevDetails: DetailsPokemonsProps[]) => {
         if (offset === 0) {
           return pokemonDetails;
         } else {
           return [...prevDetails, ...pokemonDetails];
         }
-      }
+      };
 
       setDetailsPokemons(listPokemons);
     } catch (error) {
@@ -59,7 +58,7 @@ export function CardsPokemons() {
     const types: string[] = pokemons.types.map(
       (type: { type: { name: string } }) => type.type.name
     );
-    
+
     const colorPokemon = showColorPokemon(types.join("-"));
 
     return {
@@ -71,33 +70,31 @@ export function CardsPokemons() {
   }
 
   useEffect(() => {
-      fetchPokemonsList(offset);
+    fetchPokemonsList(offset);
   }, []);
 
   return (
     <CardsPokemonsStyle>
-      <CardPokemon detailsPokemons={detailsPokemons} />
+      {detailsPokemons.map((pokemon) => {
+        return (
+          <CardPokemon
+            name={pokemon.name}
+            img={pokemon.image}
+            types={pokemon.types}
+            colorPokemon={pokemon.colorPokemon}
+            key={pokemon.name}
+          />
+        );
+      })}
 
-      {
-        loading ? (
       <button
         type="button"
-        className="button button-loading"
+        className={loading ? "button button-loading" : "button"}
         id="btn"
         onClick={fetchMorePokemons}
       >
         <span className="button-text">Carregar Mais</span>
       </button>
-        ): 
-        ( <button
-          type="button"
-          className="button"
-          id="btn"
-          onClick={fetchMorePokemons}
-        >
-          <span className="button-text">Carregar Mais</span>
-        </button>)
-      }
     </CardsPokemonsStyle>
   );
 }

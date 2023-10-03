@@ -34,7 +34,6 @@ export const CardsPokemonsStyle = styled.div`
 
   .button-loading .button-text {
     color: transparent;
-    transition: 0.5s ease-in-out;
   }
 
   .button-loading::after {
