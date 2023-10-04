@@ -7,9 +7,7 @@ import { ThemeProvider } from "styled-components";
 import { AppRoutes } from "./pages/routes";
 import { useContext } from "react";
 
-type BgCardPokemons = Record<string, string>;
-
-const bgCardPokemon: BgCardPokemons = {
+const bgCardPokemon: Record<string, string> = {
   fire: "#fd7d24",
   grass: "#9bcc50",
   water: "#4592c4",
@@ -137,7 +135,6 @@ function App() {
   return (
     <ThemeProvider theme={bgCardPokemon}>
       <CSSreset theme={theme} />
-      <Header />
       <ThemeTogglerButton />
       <AppRoutes />
     </ThemeProvider>

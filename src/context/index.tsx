@@ -8,7 +8,6 @@ export interface Theme {
   colorMode: string;
   colorPokebola: string;
 }
-
 interface ThemeContext {
   dark: Theme;
   light: Theme;

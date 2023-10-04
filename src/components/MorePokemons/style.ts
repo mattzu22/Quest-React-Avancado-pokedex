@@ -1,22 +1,11 @@
 import styled from "styled-components";
 
-export const CardsPokemonsStyle = styled.div`
-  max-width: 1440px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-
-  /* .button {
-    position: relative;
-    margin: 40px 0 20px 0;
-    width: 100%;
-    cursor: pointer;
-  }
-
+export const Button = styled.button`
+  position: relative;
+  margin: 40px 0 20px 0;
+  width: 100%;
+  cursor: pointer;
+  
   .button-text {
     position: relative;
     font-family: "Poppins", sans-serif;
@@ -60,5 +49,5 @@ export const CardsPokemonsStyle = styled.div`
     to {
       transform: rotate(1turn);
     }
-  } */
-`;
+  }
+`

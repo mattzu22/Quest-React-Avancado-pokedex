@@ -2,6 +2,9 @@ import CardPokemon from "../CardPokemon";
 import { CardsPokemonsStyle } from "./style";
 import { useState, useEffect } from "react";
 import { showColorPokemon } from "../../App";
+import Header from "../Header";
+import { MorePokemons } from "../MorePokemons";
+
 interface DetailsPokemonsProps {
   name: string;
   image: string;
@@ -10,21 +13,12 @@ interface DetailsPokemonsProps {
 }
 
 export function CardsPokemons() {
-  const [detailsPokemons, setDetailsPokemons] = useState<DetailsPokemonsProps[]>([]);
+  const [detailsPokemons, setDetailsPokemons] = useState<
+    DetailsPokemonsProps[]
+  >([]);
   const [offset, setOffset] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false);
 
   const limit: number = 10;
-
-  const fetchMorePokemons = () => {
-    const newOffset = offset + limit;
-    setLoading(true);
-    setTimeout(() => {
-      fetchPokemonsList(newOffset);
-      setOffset(newOffset);
-      setLoading(false);
-    }, 1000);
-  };
 
   const fetchPokemonsList = async (offset: number) => {
     try {
@@ -51,8 +45,8 @@ export function CardsPokemons() {
     }
   };
 
-  async function getPokemonsInfo(data: string): Promise<DetailsPokemonsProps> {
-    const detailsPokemons = await fetch(data);
+  async function getPokemonsInfo(url: string): Promise<DetailsPokemonsProps> {
+    const detailsPokemons = await fetch(url);
 
     const pokemons = await detailsPokemons.json();
     const types: string[] = pokemons.types.map(
@@ -75,6 +69,11 @@ export function CardsPokemons() {
 
   return (
     <CardsPokemonsStyle>
+      <Header
+        setDetailsPokemons={setDetailsPokemons}
+        showColorPokemon={showColorPokemon}
+      />
+
       {detailsPokemons.map((pokemon) => {
         return (
           <CardPokemon
@@ -87,14 +86,7 @@ export function CardsPokemons() {
         );
       })}
 
-      <button
-        type="button"
-        className={loading ? "button button-loading" : "button"}
-        id="btn"
-        onClick={fetchMorePokemons}
-      >
-        <span className="button-text">Carregar Mais</span>
-      </button>
+      <MorePokemons fetchPokemonsList={fetchPokemonsList} />
     </CardsPokemonsStyle>
   );
 }

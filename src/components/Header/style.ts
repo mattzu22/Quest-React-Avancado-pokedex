@@ -28,6 +28,7 @@ export const HeaderStyle = styled.header`
     border: none;
     outline: none;
     background-color: ${({theme}) => theme.bg};
+    color: ${({theme}) => theme.color};
     transition: 0.3s ease-in-out;
   }
 

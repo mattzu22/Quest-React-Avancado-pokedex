@@ -8,7 +8,7 @@ export const CartaoPokemon = styled.div`
   max-width: 100%;
   position: relative;
   overflow: hidden;
-  border: 2px solid ${({ theme }) => theme.color};
+  border: 3px solid ${({ theme }) => theme.color};
   
   .name {
     margin-bottom: 3px;
