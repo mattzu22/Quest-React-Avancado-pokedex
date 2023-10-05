@@ -4,37 +4,28 @@ import { useContext } from "react";
 import { ThemeContext, ThemeContextType } from "../../context";
 import { useState } from "react";
 
-export default function Header({ setDetailsPokemons, showColorPokemon }: any) {
+export default function Header({ setDetailsPokemons, getPokemonsInfo }: any) {
   const [searchFilteredPokemon, setSearchFilteredPokemon] = useState("");
 
   const { theme } = useContext(ThemeContext) as ThemeContextType;
 
   const showFilteredPokemonInput = async () => {
     const pokemon = searchFilteredPokemon;
-    const url = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-    const dataPokemon = await url.json();
+    const detailFilteredPokemon = await getPokemonsInfo(pokemon);
 
-    const types: string[] = dataPokemon.types.map(
-      (type: { type: { name: string } }) => type.type.name
-    );
-
-    const colorPokemon = showColorPokemon(types.join("-"));
-
-    const detailFilteredPokemon = [
-      {
-        name: dataPokemon.name,
-        image: dataPokemon.sprites.front_default,
-        types: types,
-        colorPokemon: colorPokemon,
-      },
-    ];
-
-    setDetailsPokemons(detailFilteredPokemon);
+    setDetailsPokemons([detailFilteredPokemon]);
   };
 
   function showPokemonFiltered(event: any) {
     event?.preventDefault();
-    
+
+    setSearchFilteredPokemon(event.target.value);
+    setSearchFilteredPokemon("");
+  }
+
+  function handleInputValue(event: any) {
+    event?.preventDefault();
+
     setSearchFilteredPokemon(event.target.value);
   }
 
@@ -48,7 +39,7 @@ export default function Header({ setDetailsPokemons, showColorPokemon }: any) {
           placeholder="Digite o nome do pokemon"
           id="search-pokemon"
           name="name-pokemon"
-          onChange={showPokemonFiltered}
+          onChange={handleInputValue}
           value={searchFilteredPokemon}
         />
 

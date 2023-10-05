@@ -27,7 +27,7 @@ export const themes: ThemeContext = {
     bgCard: "rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)",
     bgMode: "#000000",
     colorMode: "#ffffff",
-    color: "#000000",
+    color: "#2c2c2c",
     colorPokebola:"invert(100%)",
   },
 };

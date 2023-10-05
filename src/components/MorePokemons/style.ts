@@ -1,11 +1,18 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
-  position: relative;
-  margin: 40px 0 20px 0;
-  width: 100%;
-  cursor: pointer;
-  
+export const ButtonMorePokemons = styled.div`
+ width: 100%;
+ margin: 40px 0 20px 0;
+
+ .button{
+    position: relative;
+    cursor: pointer;
+
+    &:disabled{
+      cursor: not-allowed;
+    }
+  }
+   
   .button-text {
     position: relative;
     font-family: "Poppins", sans-serif;
@@ -13,9 +20,9 @@ export const Button = styled.button`
     font-size: 16px;
     padding: 12px 20px;
     background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(185, 174, 174, 1) 100%
+      120deg,
+      rgba(255, 255, 255, 1) 30%,
+      rgba(185, 174, 174, 1) 60%
     );
     border-radius: 4px;
     transition: all 0.2s;

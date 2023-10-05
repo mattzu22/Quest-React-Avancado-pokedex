@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Button } from "./style";
+import { ButtonMorePokemons } from "./style";
 
-export const MorePokemons = ({ fetchPokemonsList }: any) => {
+export const MorePokemons = ({ fetchPokemonsList, detailsPokemons }: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [offset, setOffset] = useState<number>(0);
 
   const limit: number = 10;
+
+  const pokemonLength = detailsPokemons.length == 1
 
   const fetchMorePokemons = () => {
     const newOffset = offset + limit;
@@ -14,15 +16,18 @@ export const MorePokemons = ({ fetchPokemonsList }: any) => {
       fetchPokemonsList(newOffset);
       setOffset(newOffset);
       setLoading(false);
-    }, 1000);
+    }, 1500);
   };
 
   return (
-    <Button
-      className={loading ? "button button-loading" : "button"}
-      onClick={fetchMorePokemons}
-    >
-      <span className="button-text">Carregar Mais</span>
-    </Button>
+    <ButtonMorePokemons>
+      <button
+        className={loading ? "button button-loading" : "button"}
+        onClick={fetchMorePokemons}
+        disabled={loading ? true : false || pokemonLength ? true : false}
+      >
+        <span className="button-text">Carregar Mais</span>
+      </button>
+    </ButtonMorePokemons>
   );
 };

@@ -13,7 +13,7 @@ interface PropsDetailsPokemons {
   colorPokemon: string;
 }
 
-export default function CardPokemon({name,img,types,colorPokemon,}: PropsDetailsPokemons) {
+export default function CardPokemon({name, img, types, colorPokemon}: PropsDetailsPokemons) {
   
   const { theme } = useContext(ThemeContext) as ThemeContextType;
 

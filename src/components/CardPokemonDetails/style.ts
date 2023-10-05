@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const StyleCardPokemon = styled.div`
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
   max-width: 430px;
   width: 100%;
   margin: 0 auto;
@@ -15,8 +18,8 @@ export const StyleCardPokemon = styled.div`
   to {
     opacity: 1;
   }
-
 }
+
 .container-card-pokemon {
   border-radius: 20px;
   width: 100%;
@@ -28,7 +31,7 @@ export const InfoPokemonTop = styled.div`
   margin-bottom: 10px;
   padding: 15px 35px 0 35px;
   position: relative;
-  color: ${({theme})=>theme.color};
+  color: ${({ theme }) => theme.color};
   transition: 0.2s ease-in-out;
 
 .name-type .name {
@@ -92,7 +95,7 @@ img {
 .img-pokemon:before{
   content: "";
   background: url(../../public/images/pokebola.webp) center center no-repeat;
-  filter: ${({theme}) => theme.colorPokebola};
+  filter: ${({ theme }) => theme.colorPokebola};
   width: 400px;
   height: 290px;
   transition: 0.3s ease-in-out;
@@ -102,11 +105,11 @@ img {
 }
 `
 export const PokeDetails = styled.div`
-  background-color: ${({theme}) => theme.bg};
+  background-color: ${({ theme }) => theme.bg};
   opacity: 0.8;
   border-radius: 50px 50px 20px 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  color: ${({theme}) =>theme.color};
+  color: ${({ theme }) => theme.color};
   transition: 0.3s ease-in-out;
 `
 export const Navegation = styled.nav`

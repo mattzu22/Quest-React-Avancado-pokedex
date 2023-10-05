@@ -19,7 +19,6 @@ export const HeaderStyle = styled.header`
     border-radius: 20px;
     overflow: hidden;
     transition: 0.3s ease-in-out;
-
   }
 
   input{
