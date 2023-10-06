@@ -1,50 +1,31 @@
-import { HeaderStyle } from "./style";
-import logo from "../../../public/images/pokedex-3d-logo.png";
-import { useContext } from "react";
-import { ThemeContext, ThemeContextType } from "../../context";
-import { useState } from "react";
+import logo from "../../../public/images/pokedex-3d-logo.png"
 
-export default function Header({ setDetailsPokemons, getPokemonsInfo }: any) {
-  const [searchFilteredPokemon, setSearchFilteredPokemon] = useState("");
+import * as Styled from "./style";
+import { Search } from "../Search";  
+import { SetStateAction } from "react";
 
-  const { theme } = useContext(ThemeContext) as ThemeContextType;
+interface DetailsPokemonsProps {
+  name: string;
+  image: string;
+  types: string[];
+  colorPokemon: string;
+}
+interface PropsHeader{
+  setDetailsPokemons?: (value: React.SetStateAction<DetailsPokemonsProps[]>) => void
+  getDetailsPokemon?: (offset: number) => void
+  getDataPokemon?: (pokemon: string) => void
+}
 
-  const showFilteredPokemonInput = async () => {
-    const pokemon = searchFilteredPokemon;
-    const detailFilteredPokemon = await getPokemonsInfo(pokemon);
-
-    setDetailsPokemons([detailFilteredPokemon]);
-  };
-
-  function showPokemonFiltered(event: any) {
-    event?.preventDefault();
-
-    setSearchFilteredPokemon(event.target.value);
-    setSearchFilteredPokemon("");
-  }
-
-  function handleInputValue(event: any) {
-    event?.preventDefault();
-
-    setSearchFilteredPokemon(event.target.value);
-  }
-
+export default function Header({ setDetailsPokemons, getDetailsPokemon, getDataPokemon }: PropsHeader) {
   return (
-    <HeaderStyle theme={theme}>
+    <Styled.Header >
       <img src={logo} alt="logo" />
 
-      <form className="search" onSubmit={showPokemonFiltered}>
-        <input
-          type="text"
-          placeholder="Digite o nome do pokemon"
-          id="search-pokemon"
-          name="name-pokemon"
-          onChange={handleInputValue}
-          value={searchFilteredPokemon}
-        />
-
-        <button onClick={showFilteredPokemonInput}>🔎</button>
-      </form>
-    </HeaderStyle>
+      <Search 
+       setDetailsPokemons={setDetailsPokemons}
+       getDetailsPokemon={getDetailsPokemon}
+       getDataPokemon={getDataPokemon}
+      />
+    </Styled.Header>
   );
 }

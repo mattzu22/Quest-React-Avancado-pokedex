@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Pokemon } from "./pokemon.tsx";
-import { Pokemons }  from "./CardsPokemons.tsx";
+import { Pokemon } from "../pages/pokemon.tsx";
+import { Pokemons }  from "../pages/CardsPokemons.tsx";
 
-const AppRoutes = () => {
+export const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -13,4 +13,3 @@ const AppRoutes = () => {
   );
 };
 
-export { AppRoutes };

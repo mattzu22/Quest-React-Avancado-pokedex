@@ -6,10 +6,15 @@ import {
   Navegation,
   InfoPokemon,
 } from "./style";
+
 import { showColorPokemon } from "../../App";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { ThemeContext, ThemeContextType } from "../../context";
+
+import Header from "../Header";
+
+import { AiOutlineRollback } from "react-icons/ai"
 
 interface DetailsPokemonProps {
   name: string;
@@ -32,14 +37,9 @@ interface DetailsPokemonProps {
   colorPokemon: string;
 }
 
-interface PropsAbilities {
-  nameAbility: string;
-  effect: string;
-}
-
 export function PokemonsDetails() {
   const [detailsPokemon, setDetailsPokemon] = useState<DetailsPokemonProps | undefined>(undefined);
-  const [menu, setMenu] = useState("status");
+  const [showMenu, setShowMenu] = useState("status");
 
   const { theme } = useContext(ThemeContext) as ThemeContextType;
 
@@ -48,14 +48,15 @@ export function PokemonsDetails() {
   async function getDataPokemon(pokemon: string | undefined) {
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
     const response = await fetch(url);
-    const json = await response.json();
+    const listPokemons = await response.json();
 
-    const dataDetailsPokemon: DetailsPokemonProps = await getDetailsPokemon(json);
+    const dataDetailsPokemon: DetailsPokemonProps = await getDetailsPokemon(listPokemons);
 
     setDetailsPokemon(dataDetailsPokemon);
   }
 
   async function getDetailsPokemon(dataPokemon: Record<string, any>) {
+
     const types: string[] = dataPokemon.types.map(
       (type: { type: { name: string } }) => type.type.name
     );
@@ -76,13 +77,8 @@ export function PokemonsDetails() {
       }
     );
 
-    console.log(urlAbilitiesPromises);
-    
-
     const infoStats = dataPokemon.stats.map(
       (stat: { stat: { name: string }; base_stat: string }) => {
-        console.log(stat);
-
         const nameStats = stat.stat.name;
         const baseStats = stat.base_stat;
         return { nameStats, baseStats };
@@ -113,8 +109,14 @@ export function PokemonsDetails() {
   }, []);
 
   return (
-  
+    <>
+      <Header getDataPokemon={getDataPokemon}/>
+
       <StyleCardPokemon>
+        <Link className="back" to={`/`}>
+          <AiOutlineRollback className="back-icon"/>
+        </Link>
+        
         <div
           className="container-card-pokemon"
           style={{ background: detailsPokemon?.colorPokemon }}
@@ -148,20 +150,20 @@ export function PokemonsDetails() {
               <Navegation>
                 <ul>
                   <li
-                    className={menu == "status" ? "selecionado" : ""}
-                    onClick={() => setMenu("status")}
+                    className={showMenu == "status" ? "selecionado" : ""}
+                    onClick={() => setShowMenu("status")}
                   >
                     Status
                   </li>
                   <li
-                    className={menu == "moves" ? "selecionado" : ""}
-                    onClick={() => setMenu("moves")}
+                    className={showMenu == "moves" ? "selecionado" : ""}
+                    onClick={() => setShowMenu("moves")}
                   >
                     Moves
                   </li>
                   <li
-                    className={menu == "abilities" ? "selecionado" : ""}
-                    onClick={() => setMenu("abilities")}
+                    className={showMenu == "abilities" ? "selecionado" : ""}
+                    onClick={() => setShowMenu("abilities")}
                   >
                     Abilities
                   </li>
@@ -169,7 +171,7 @@ export function PokemonsDetails() {
               </Navegation>
 
               <InfoPokemon>
-                {menu == "status" ? (
+                {showMenu == "status" ? (
                   <div className="info-poke">
                     <h3>Status</h3>
 
@@ -185,7 +187,7 @@ export function PokemonsDetails() {
                   </div>
                 ) : null}
 
-                {menu == "moves" ? (
+                {showMenu == "moves" ? (
                   <div className="info-poke">
                     <h3>Moves</h3>
 
@@ -197,7 +199,7 @@ export function PokemonsDetails() {
                   </div>
                 ) : null}
 
-                {menu == "abilities" ? (
+                {showMenu == "abilities" ? (
                   <div className="abilities info-poke">
                     <h3>Abilities</h3>
 
@@ -216,5 +218,6 @@ export function PokemonsDetails() {
           </InfoPokemonBottom>
         </div>
       </StyleCardPokemon>
+    </>
   );
 }

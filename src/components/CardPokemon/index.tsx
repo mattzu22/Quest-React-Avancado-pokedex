@@ -4,7 +4,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { ThemeContext } from "../../context";
 import { ThemeContextType } from "../../context";
 import { Link } from "react-router-dom";
-import { ImgPokemon } from "../PokemonImg";
 
 interface PropsDetailsPokemons {
   name: string;
@@ -24,7 +23,7 @@ export default function CardPokemon({name, img, types, colorPokemon}: PropsDetai
       theme={theme}
     >
       <Link className="card-image" to={`/pokemon/${name}`}>
-        <ImgPokemon src={img} alt={name} />
+        <img src={img} alt={name} />
       </Link>
 
       <div className="details">

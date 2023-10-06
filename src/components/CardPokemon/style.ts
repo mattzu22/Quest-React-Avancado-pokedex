@@ -9,7 +9,17 @@ export const CartaoPokemon = styled.div`
   position: relative;
   overflow: hidden;
   border: 3px solid ${({ theme }) => theme.color};
-  
+
+  .card-image img{
+   max-width: 100%;
+   z-index: 10;
+
+    &:hover{
+    transition: 0.4s ease-in-out ;
+    transform: scale(1.1);
+    }
+  }
+
   .name {
     margin-bottom: 3px;
     margin-top: 0;

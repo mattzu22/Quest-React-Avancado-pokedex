@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { ThemeContext, ThemeContextType, themes } from "../../context";
-;
+
 import { StyleDiv } from "./style";
+
 import { CiSun } from "react-icons/Ci";
 import { HiOutlineMoon } from "react-icons/hi"
-
 
 
 export const ThemeTogglerButton = () => {

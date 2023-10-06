@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import { ThemeTogglerButton } from "./components/theme-toggler";
 
 import { ThemeProvider } from "styled-components";
-import { AppRoutes } from "./pages/routes";
+import { AppRoutes } from "./routes/routes";
 import { useContext } from "react";
 
 const bgCardPokemon: Record<string, string> = {

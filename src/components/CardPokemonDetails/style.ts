@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyleCardPokemon = styled.div`
-  min-height: 100vh;
+  min-height: calc(100vh - 200px);
   display: flex;
   align-items: center;
   max-width: 430px;
@@ -9,6 +9,17 @@ export const StyleCardPokemon = styled.div`
   margin: 0 auto;
   padding: 40px 15px;
   animation: changer-shiny 1s ease-in-out;
+
+  .back{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+
+    .back-icon{
+      font-size: 25px;
+      color: ${({ theme }) => theme.color}
+    }
+  }
 
   @keyframes changer-shiny {
   from {
