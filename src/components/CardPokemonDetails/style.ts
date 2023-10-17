@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import imgPokebola from "../../../public/images/pokebola.webp"
 
 export const CardPokemon = styled.div`
   min-height: calc(100vh - 200px);
@@ -105,7 +106,7 @@ img {
 
 .img-pokemon:before{
   content: "";
-  background: url(../../public/images/pokebola.webp) center center no-repeat;
+  background: url(${imgPokebola}) center center no-repeat;
   filter: ${({ theme }) => theme.colorPokebola};
   width: 400px;
   height: 290px;
