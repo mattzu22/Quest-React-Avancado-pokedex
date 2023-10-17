@@ -1,8 +1,9 @@
 import { createGlobalStyle } from "styled-components";
+import bgBody from "../public/images/bg-pokemon.jpg"
 
 export const CSSreset = createGlobalStyle`
 body{
-    background: linear-gradient(${({theme})=> theme.bgCard}) ,url(../public/images/bg-pokemon.jpg) center center no-repeat fixed;
+    background: linear-gradient(${({theme})=> theme.bgCard}) ,url(${bgBody}) center center no-repeat fixed;
     background-size: cover;
     min-height: 100vh;
     font-family: "Poppins", sans-serif;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import bgCard from "../../../public/images/pokebola.webp"
 
 export const CartaoPokemon = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -67,7 +68,7 @@ export const CartaoPokemon = styled.div`
 
  .card-image:before {
   content: "";
-  background: url(../../public/images/pokebola.webp) center center no-repeat;
+  background: url(${bgCard}) center center no-repeat;
   filter: ${({ theme }) => theme.colorPokebola};
   display: block;
   width: 160%;
