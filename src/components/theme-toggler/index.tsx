@@ -4,7 +4,7 @@ import { useContext } from "react";
 
 import { ThemeContext, ThemeContextType, themes } from "../../context";
 
-import { CiSun } from "react-icons/Ci";
+import { CiSun } from "react-icons/ci";
 import { HiOutlineMoon } from "react-icons/hi"
 
 
