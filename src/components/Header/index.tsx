@@ -1,22 +1,16 @@
 import logo from "../../../public/images/pokedex-3d-logo.png"
 
 import * as Styled from "./style";
-import { Search } from "../Search";  
-import { SetStateAction } from "react";
+import { Search } from "../Search";
 
-interface DetailsPokemonsProps {
-  name: string;
-  image: string;
-  types: string[];
-  colorPokemon: string;
-}
+import { DetailsPokemonsProps } from "../../interfaces/config";
+
 interface PropsHeader{
-  setDetailsPokemons?: (value: React.SetStateAction<DetailsPokemonsProps[]>) => void
-  getDetailsPokemon?: (offset: number) => void
-  getDataPokemon?: (pokemon: string) => void
+  setDetailsPokemons?: React.Dispatch<React.SetStateAction<DetailsPokemonsProps[]>>
+  getDetailsPokemon?: (pokemon: string | undefined) => Promise<void>
 }
 
-export default function Header({ setDetailsPokemons, getDetailsPokemon, getDataPokemon }: PropsHeader) {
+export function Header({ setDetailsPokemons, getDetailsPokemon }: PropsHeader) {
   return (
     <Styled.Header >
       <img src={logo} alt="logo" />
@@ -24,7 +18,6 @@ export default function Header({ setDetailsPokemons, getDetailsPokemon, getDataP
       <Search 
        setDetailsPokemons={setDetailsPokemons}
        getDetailsPokemon={getDetailsPokemon}
-       getDataPokemon={getDataPokemon}
       />
     </Styled.Header>
   );

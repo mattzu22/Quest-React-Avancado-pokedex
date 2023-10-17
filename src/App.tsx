@@ -1,6 +1,6 @@
 import { ThemeContext, ThemeContextType } from "./context";
 import { CSSreset } from "./CSSReset";
-import Header from "./components/Header";
+
 import { ThemeTogglerButton } from "./components/theme-toggler";
 
 import { ThemeProvider } from "styled-components";

@@ -16,4 +16,15 @@ export const CardsPokemonsStyle = styled.div`
     width: 100%;
     cursor: pointer;
   }
+
+  .back{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+
+    .back-icon{
+      font-size: 25px;
+      color: ${({ theme }) => theme.color}
+    }
+  }
 `;

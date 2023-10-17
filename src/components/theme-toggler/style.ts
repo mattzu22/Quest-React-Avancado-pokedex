@@ -19,7 +19,7 @@ export const StyleDiv = styled.div`
  .btn{
   position: absolute;
  top: 20px;
- right: 80px;
+ right: 20px;
  }
 
   .checkbox {

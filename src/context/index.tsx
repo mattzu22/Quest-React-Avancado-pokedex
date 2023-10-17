@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { ReactElement, createContext, useState } from "react";
 
 export interface Theme {
   bg: string;
@@ -31,20 +31,22 @@ export const themes: ThemeContext = {
     colorPokebola:"invert(100%)",
   },
 };
-
 export interface ThemeContextType{
     theme: Theme;
     setTheme: React.Dispatch<React.SetStateAction<Theme>>
 }
+interface ChildrenProps {
+  children: ReactElement | ReactElement[];
+};
 
 export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export const ThemeContextProvider = (props: any) =>{
+export const ThemeContextProvider = ({children}: ChildrenProps) =>{
     const [theme, setTheme] = useState<Theme>(themes.dark)
 
     return (
         <ThemeContext.Provider value={{theme, setTheme}}>
-            {props.children}
+            {children}
         </ThemeContext.Provider>
     )
 }

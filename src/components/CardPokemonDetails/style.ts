@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyleCardPokemon = styled.div`
+export const CardPokemon = styled.div`
   min-height: calc(100vh - 200px);
   display: flex;
   align-items: center;
@@ -12,7 +12,7 @@ export const StyleCardPokemon = styled.div`
 
   .back{
     position: absolute;
-    top: 30px;
+    top: 20px;
     left: 30px;
 
     .back-icon{
@@ -113,6 +113,17 @@ img {
   opacity: 0.7;
   overflow: hidden;
   position: absolute;
+}
+
+@media (max-width: 455px) {
+.img-pokemon{
+    height: 200px;
+  }
+
+.img-pokemon:before{
+  content: "";
+  height: 240px;
+}
 }
 `
 export const PokeDetails = styled.div`

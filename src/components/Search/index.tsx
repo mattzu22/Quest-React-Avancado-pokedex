@@ -1,27 +1,47 @@
 import { useState, useContext, ChangeEvent } from "react";
 import { useParams } from "react-router-dom";
-import * as Styled from "./style"
+
+import * as Styled from "./style";
+
 import { ThemeContext } from "../../context";
 import { ThemeContextType } from "../../context";
-import { getPokemonsInfo } from "../../services/api"
 
-export const Search = ({setDetailsPokemons, getDetailsPokemon}: any) => {
+import { getPokemonsInfo } from "../../services/api";
+
+import { DetailsPokemonsProps } from "../../interfaces/config";
+
+interface PropsSearch {
+  setDetailsPokemons?: React.Dispatch<React.SetStateAction<DetailsPokemonsProps[]>>;
+  getDetailsPokemon?: (pokemon: string) => void;
+}
+
+export const Search = ({setDetailsPokemons,getDetailsPokemon}: PropsSearch) => {
   const [searchFilteredPokemon, setSearchFilteredPokemon] = useState("");
+  const [invalid, setInvalid] = useState("");
 
   const { theme } = useContext(ThemeContext) as ThemeContextType;
 
   const { pokemon } = useParams();
 
   const showFilteredPokemonInput = async () => {
-    const pokemon = searchFilteredPokemon;
-    const detailFilteredPokemon = await getPokemonsInfo(pokemon);
+    try {
+      if (setDetailsPokemons) {
+        const detailFilteredPokemon = await getPokemonsInfo(searchFilteredPokemon);
 
-    setDetailsPokemons([detailFilteredPokemon]);
+        if (detailFilteredPokemon) {
+          setDetailsPokemons([detailFilteredPokemon]);
+          setInvalid("");
+        }
+      }
+    } catch (error: any) {
+      setInvalid(`Erro ao buscar o Pokémon: ${error.message}`);
+    }
   };
 
   async function showCardPokemonDetailsFiltered() {
-    const pokemon = searchFilteredPokemon;
-    await getDetailsPokemon(pokemon);
+    if (getDetailsPokemon) {
+      getDetailsPokemon(searchFilteredPokemon);
+    }
   }
 
   function showPokemonFiltered(event: ChangeEvent<HTMLFormElement>) {
@@ -37,7 +57,7 @@ export const Search = ({setDetailsPokemons, getDetailsPokemon}: any) => {
     setSearchFilteredPokemon(event.target.value);
   }
 
-  function cardPokemon() {
+  function whichPokemonCardToCarry() {
     if (pokemon) {
       showCardPokemonDetailsFiltered();
     } else {
@@ -45,17 +65,23 @@ export const Search = ({setDetailsPokemons, getDetailsPokemon}: any) => {
     }
   }
   return (
-    <Styled.Search className="search" onSubmit={showPokemonFiltered} theme={theme}>
-      <input
-        type="text"
-        placeholder="Digite o nome do pokemon"
-        id="search-pokemon"
-        name="name-pokemon"
-        onChange={handleInputValue}
-        value={searchFilteredPokemon}
-      />
+    <>
+      <Styled.Search
+        className={invalid ? "invalido" : ""}
+        onSubmit={showPokemonFiltered}
+        theme={theme}
+      >
+        <input
+          type="text"
+          placeholder="Digite o nome do pokemon"
+          id="search-pokemon"
+          name="name-pokemon"
+          onChange={handleInputValue}
+          value={searchFilteredPokemon}
+        />
 
-      <button onClick={cardPokemon}>🔎</button>
-    </Styled.Search>
+        <button onClick={whichPokemonCardToCarry}>🔎</button>
+      </Styled.Search>
+    </>
   );
 };

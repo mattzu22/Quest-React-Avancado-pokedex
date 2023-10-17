@@ -12,4 +12,11 @@ export const Header = styled.header`
   img{
     max-width: 250px;
   }
+
+  @media (max-width: 750px) {
+    &{
+      flex-direction: column;
+      gap: 30px;
+    }
+  }
 `

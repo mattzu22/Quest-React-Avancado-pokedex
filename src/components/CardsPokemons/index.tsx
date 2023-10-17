@@ -1,17 +1,14 @@
-import CardPokemon from "../CardPokemon";
-import { CardsPokemonsStyle } from "./style";
 import { useState, useEffect } from "react";
-import { showColorPokemon } from "../../App";
-import { fetchPokemonsList } from "../../services/api";  
-import Header from "../Header";
-import { MorePokemons } from "../MorePokemons";
 
-interface DetailsPokemonsProps {
-  name: string;
-  image: string;
-  types: string[];
-  colorPokemon: string;
-}
+import { fetchPokemonsList } from "../../services/api";
+
+import { CardsPokemonsStyle } from "./style";
+
+import { DetailsPokemonsProps } from "../../interfaces/config";
+
+import { MorePokemons } from "../MorePokemons";
+import { CardPokemon } from "../CardPokemon";
+import { Header } from "../Header";
 
 export function CardsPokemons() {
   const [detailsPokemons, setDetailsPokemons] = useState<DetailsPokemonsProps[]>([]);
@@ -28,17 +25,13 @@ export function CardsPokemons() {
 
   return (
     <CardsPokemonsStyle>
-      <Header
-        setDetailsPokemons={setDetailsPokemons}
-        getDetailsPokemon={getDetailsPokemon}
-        // getPokemonsInfo={getPokemonsInfo}
-      />
+      <Header setDetailsPokemons={setDetailsPokemons}/>
 
       {detailsPokemons.map((pokemon) => {
         return (
           <CardPokemon
             name={pokemon.name}
-            img={pokemon.image}
+            image={pokemon.image}
             types={pokemon.types}
             colorPokemon={pokemon.colorPokemon}
             key={pokemon.name}
@@ -48,6 +41,7 @@ export function CardsPokemons() {
 
       <MorePokemons 
        getDetailsPokemon={getDetailsPokemon}
+       detailsPokemons={detailsPokemons}
       />
     </CardsPokemonsStyle>
   );

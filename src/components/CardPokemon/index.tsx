@@ -1,29 +1,25 @@
 import { useContext } from "react";
-import { CartaoPokemon } from "./style";
+import * as Styled from "./style";
 import "react-loading-skeleton/dist/skeleton.css";
 import { ThemeContext } from "../../context";
 import { ThemeContextType } from "../../context";
 import { Link } from "react-router-dom";
 
-interface PropsDetailsPokemons {
-  name: string;
-  img: string;
-  types: string[];
-  colorPokemon: string;
-}
+import {DetailsPokemonsProps} from "../../interfaces/config"
 
-export default function CardPokemon({name, img, types, colorPokemon}: PropsDetailsPokemons) {
+
+export function CardPokemon({name, image , types, colorPokemon}: DetailsPokemonsProps) {
   
   const { theme } = useContext(ThemeContext) as ThemeContextType;
 
   return (
-    <CartaoPokemon
+    <Styled.CartaoPokemon
       key={name}
       style={{ background: colorPokemon }}
       theme={theme}
     >
       <Link className="card-image" to={`/pokemon/${name}`}>
-        <img src={img} alt={name} />
+        <img src={image} alt={name} />
       </Link>
 
       <div className="details">
@@ -37,6 +33,6 @@ export default function CardPokemon({name, img, types, colorPokemon}: PropsDetai
           ))}
         </div>
       </div>
-    </CartaoPokemon>
+    </Styled.CartaoPokemon>
   );
 }
