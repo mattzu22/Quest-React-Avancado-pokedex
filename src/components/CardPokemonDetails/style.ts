@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import imgPokebola from "../../../public/images/pokebola.webp"
+import { bgCardPokemon } from "../../styles/themes/bgCardPokemon";
 
-export const CardPokemon = styled.div`
+interface PokemonProps {
+  types: string;
+}
+
+export const CardPokemon = styled.div<PokemonProps>`
   min-height: calc(100vh - 200px);
   display: flex;
   align-items: center;
@@ -35,9 +40,10 @@ export const CardPokemon = styled.div`
 .container-card-pokemon {
   border-radius: 20px;
   width: 100%;
+  background: ${({ types }) => bgCardPokemon[types]};
 }
 `
-export const InfoPokemonTop = styled.div`
+export const InfoPokemonTop = styled.div<PokemonProps>`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -66,6 +72,7 @@ export const InfoPokemonTop = styled.div`
   border-radius: 6px;
   padding: 3px 15px;
   opacity: 0.8;
+  background: ${({types}) => bgCardPokemon[types]};
 }
 }
 

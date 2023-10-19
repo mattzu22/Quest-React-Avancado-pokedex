@@ -1,4 +1,4 @@
-import { showColorPokemon } from "../App";
+
 
 export const fetchPokemonsList = async (offset: number) => {
   try {
@@ -49,8 +49,6 @@ export async function getPokemonsInfo(pokemon: string | undefined) {
   const { moves } = pokemonDetails;
   const movesSelect = moves.slice(0, 4);
 
-  const colorPokemon = showColorPokemon(types.join("-"));
-
   return Promise.all(urlAbilitiesPromises).then((res) => {
     return {
       name: pokemonDetails.name,
@@ -60,7 +58,6 @@ export async function getPokemonsInfo(pokemon: string | undefined) {
       id: pokemonDetails.id,
       moves: movesSelect,
       abilities: res,
-      colorPokemon: colorPokemon,
     };
   });
 }

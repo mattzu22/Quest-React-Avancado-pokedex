@@ -21,7 +21,7 @@ interface DetailsPokemonProps {
   image: string;
   id: string;
   moves: {
-    move: any;
+    move: {name: string};
     name: string;
     url: string;
   }[];
@@ -29,16 +29,17 @@ interface DetailsPokemonProps {
     nameAbility: string;
     effect: { effect: string }[];
   }[];
-  colorPokemon: string;
 }
 
 export function PokemonsDetails() {
-  const [detailsPokemon, setDetailsPokemon] = useState<DetailsPokemonProps | undefined>(undefined);
+  const [detailsPokemon, setDetailsPokemon] = useState<DetailsPokemonProps| undefined>(undefined);
   const [showMenu, setShowMenu] = useState<string>("status");
 
   const { theme } = useContext(ThemeContext) as ThemeContextType;
 
   const { pokemon } = useParams();
+
+  const stringTypes = detailsPokemon?.types ? detailsPokemon?.types.join("-") : ""
 
   async function getDetailsPokemon(pokemon: string | undefined){
     const dataPokemon = await getPokemonsInfo(pokemon)
@@ -56,23 +57,24 @@ export function PokemonsDetails() {
        getDetailsPokemon={getDetailsPokemon}
       />
 
-      <Styled.CardPokemon>
+      <Styled.CardPokemon  types={stringTypes}>
         <Link className="back" to={`/`}>
           <AiOutlineRollback className="back-icon"/>
         </Link>
         
         <div
           className="container-card-pokemon"
-          style={{ background: detailsPokemon?.colorPokemon }}
         >
-          <Styled.InfoPokemonTop theme={theme}>
+          <Styled.InfoPokemonTop 
+           theme={theme}
+            types={stringTypes}
+          >
             <div className="name-type">
               <h2 className="name">{detailsPokemon?.name}</h2>
               <div className="types">
                 {detailsPokemon?.types.map((type) => (
                   <span
                     className="type"
-                    style={{ background: detailsPokemon?.colorPokemon }}
                     key={type}
                   >
                     {type}

@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import imgPokebola from "../../../public/images/pokebola.webp"
+import { bgCardPokemon } from "../../styles/themes/bgCardPokemon";
+interface CartaoPokemonProps{
+  types: string;
+}
 
-export const CartaoPokemon = styled.div`
+export const CartaoPokemon = styled.div<CartaoPokemonProps>`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 10px;
   width: 250px;
@@ -10,6 +14,7 @@ export const CartaoPokemon = styled.div`
   position: relative;
   overflow: hidden;
   border: 3px solid ${({ theme }) => theme.color};
+  background: ${({types}) => bgCardPokemon[types]};
 
   .card-image img{
    max-width: 100%;
@@ -31,6 +36,10 @@ export const CartaoPokemon = styled.div`
   .types {
     display: flex;
     gap: 10px;
+  }
+
+  .type{
+    background: ${({types}) => bgCardPokemon[types]};
   }
   
   .details .types .type {

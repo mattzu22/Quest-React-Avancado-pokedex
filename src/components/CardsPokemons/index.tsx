@@ -33,7 +33,6 @@ export function CardsPokemons() {
             name={pokemon.name}
             image={pokemon.image}
             types={pokemon.types}
-            colorPokemon={pokemon.colorPokemon}
             key={pokemon.name}
           />
         );

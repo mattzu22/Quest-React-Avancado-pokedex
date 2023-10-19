@@ -8,14 +8,16 @@ import { Link } from "react-router-dom";
 import {DetailsPokemonsProps} from "../../interfaces/config"
 
 
-export function CardPokemon({name, image , types, colorPokemon}: DetailsPokemonsProps) {
+export function CardPokemon({name, image , types}: DetailsPokemonsProps) {
   
   const { theme } = useContext(ThemeContext) as ThemeContextType;
+
+  const stringTypes = types.map(type => type).join("-")
 
   return (
     <Styled.CartaoPokemon
       key={name}
-      style={{ background: colorPokemon }}
+      types={stringTypes}
       theme={theme}
     >
       <Link className="card-image" to={`/pokemon/${name}`}>
@@ -27,7 +29,7 @@ export function CardPokemon({name, image , types, colorPokemon}: DetailsPokemons
 
         <div className="types">
           {types.map((type) => (
-            <p className="type" style={{ background: colorPokemon }} key={type}>
+            <p className="type" key={type}>
               {type}
             </p>
           ))}
