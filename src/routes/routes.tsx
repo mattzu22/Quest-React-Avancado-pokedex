@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Pokemon } from "../pages/pokemon.tsx";
-import { Pokemons } from "../pages/CardsPokemons.tsx";
+import { PokemonsDetails } from "../pages/CardPokemonDetails";
+import { CardsPokemons } from "../pages/CardsPokemons";
 // import { DefautlLayout } from "../layouts/DefaultLayout.tsx";
 
 export const AppRoutes = () => {
@@ -8,8 +8,8 @@ export const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         {/* <Route path="/" element={<DefautlLayout />}> */}
-          <Route path="/pokemon/:pokemon" element={<Pokemon />} />
-          <Route path="/" element={<Pokemons />} />
+          <Route path="/pokemon/:pokemon" element={<PokemonsDetails />} />
+          <Route path="/" element={<CardsPokemons />} />
         {/* </Route> */}
       </Routes>
     </BrowserRouter>
