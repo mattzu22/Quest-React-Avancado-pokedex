@@ -33,8 +33,12 @@ export const Search = ({setDetailsPokemons,getDetailsPokemon}: PropsSearch) => {
           setInvalid("");
         }
       }
-    } catch (error: any) {
-      setInvalid(`Erro ao buscar o Pokémon: ${error.message}`);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setInvalid(`Erro ao buscar o Pokémon: ${error.message}`);
+      } else {
+        setInvalid("Erro ao buscar o Pokémon: Unknown error");
+      }
     }
   };
 
